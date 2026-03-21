@@ -40,7 +40,6 @@ const Header = () => {
           onClick={() => handleNavClick('home')}
         />
       </div>
-
       {/* === Desktop Menu === */}
       <nav className="flex-1 hidden md:flex justify-center items-center">
         <ul className="flex list-none">
@@ -62,7 +61,6 @@ const Header = () => {
           ))}
         </ul>
       </nav>
-
       {/* === Mobile Menu Button === */}
       <div className="md:hidden flex cursor-pointer">
         <button 
