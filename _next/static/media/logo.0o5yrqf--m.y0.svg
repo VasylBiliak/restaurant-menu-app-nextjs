@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&amp;display=swap');
+    </style>
+  </defs>
+  
+  <text 
+    x="50%" 
+    y="50%" 
+    dominant-baseline="middle" 
+    text-anchor="middle" 
+    font-family="'Cormorant Garamond', serif" 
+    font-weight="600" 
+    font-size="60" 
+    fill="#FFFFFF" 
+    letter-spacing="1.5">
+    Biliakyn’s
+  </text>
+  
+  <path d="M 100 75 L 250 75" stroke="#FFFFFF" stroke-width="1" opacity="0.7"/>
+</svg>

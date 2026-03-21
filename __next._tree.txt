@@ -1,0 +1,2 @@
+:HL["/restaurant-menu-app-nextjs/_next/static/chunks/004-7dje2mgri.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"9iFiJ1cErP3UdxAJ2Mufn"}
