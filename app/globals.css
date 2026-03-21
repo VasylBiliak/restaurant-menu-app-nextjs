@@ -1,26 +1,178 @@
-@import "tailwindcss";
+/* html,
+body {
+  background-color: var(--color-black);
+  width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: auto;
+}
+
+#root {
+  background-color: var(--color-black);
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-base: 'Dancing Script', cursive;
+  --font-alt: 'Montserrat', sans-serif;
+
+  --color-golden: #DAC165FF;
+  --color-black: #000000;
+  --color-gray: #464141;
+  --color-crimson: rgba(227, 204, 231, 0.96);
+  --color-grey: #AAAAAA;
+  --color-white: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+.slide-bottom {
+  -webkit-animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a,
+div {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus,
+a:focus {
+  outline: none;
+}
+
+@-webkit-keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(-25%);
+            transform: translateY(-25%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(-25%);
+            transform: translateY(-25%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+} */
+
+
+/* ------------- */
+/* app/globals.css */
+
+
+@import "tailwindcss";
+/* @import "preflight";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
+
+@theme {
+  --font-base: "Dancing Script", cursive;
+  --font-alt: "Montserrat", sans-serif;
+  --color-golden: #DAC165;
+  --color-black: #000000;
+  --color-gray: #464141;
+  --color-crimson: rgba(227, 204, 231, 0.96);
+  --color-grey: #AAAAAA;
+  --color-white: #ffffff;
+}
+
+@layer base {
+  html, body {
+    background-color: #020202;
+    color: #ffffff;
+    font-family: var(--font-alt);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-base);
+  }
+
+  main {
+    min-width: 100vw;
+    background-color: black;
+    /* overflow-x: hidden;    */
+  }
+
+section {
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  background-color: black;
+  max-width: 1280px;
+  /* mobile first */
+  padding: 0.5rem;
+  padding-top: 5rem;
+}
+
+/* ≥ 480px */
+@media (min-width: 480px) {
+  section {
+    padding: 1rem;
+    padding-top: 5.5rem;
+  }
+}
+
+/* ≥ 640px (sm) */
+@media (min-width: 640px) {
+  section {
+    padding: 1.5rem;
+    padding-top: 6rem;
+  }
+}
+
+/* ≥ 768px (md) */
+@media (min-width: 768px) {
+  section {
+    padding: 3rem;
+    padding-top: 6rem;
+  }
+}
+
+/* ≥ 1024px (lg) */
+@media (min-width: 1024px) {
+  section {
+    padding: 4rem;
+    padding-top: 6rem;
+  }
+}
+
+/* ≥ 1280px (xl) */
+@media (min-width: 1280px) {
+  section {
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 6rem;
+  }
+}
+
+@media (min-width: 2400px) {
+  section {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
+
 }
