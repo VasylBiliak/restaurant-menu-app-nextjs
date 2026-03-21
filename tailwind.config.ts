@@ -21,11 +21,6 @@ const config: Config = {
         base: ["var(--font-base)"],
         alt: ["var(--font-alt)"],
       },
-
-      // backgroundImage: {
-      //   "bg-fon": "url('/images/bg/bg_wood.jpg')",
-      // },
-
       animation: {
         'slide-bottom': 'slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both',
       },

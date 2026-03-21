@@ -15,7 +15,7 @@ const About = () => {
       ref={ref}
       id="about"
       className="relative flex justify-center items-center gap-10 
-      bg-[url('/images/bg/bg_wood.jpg')] bg-center bg-cover bg-repeat bg-fixed
+      bg-[url(`${process.env.NEXT_PUBLIC_BASE_PATH}/images/bg/bg_wood.jpg`)] bg-center bg-cover bg-repeat bg-fixed
       pr-0! pl-0!
       "
     >
