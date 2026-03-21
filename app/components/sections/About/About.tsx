@@ -14,10 +14,9 @@ const About = () => {
     <section
       ref={ref}
       id="about"
-      className="relative flex justify-center items-center gap-10 
-      bg-[url(`${process.env.NEXT_PUBLIC_BASE_PATH}/images/bg/bg_wood.jpg`)] bg-center bg-cover bg-repeat bg-fixed
-      pr-0! pl-0!
-      "
+className="relative flex justify-center items-center gap-10 
+  bg-[url('/images/bg/bg_wood.jpg')] bg-center bg-cover bg-repeat bg-fixed
+  pr-0! pl-0!"
     >
       {/* === Content === */}
       <div className="relative z-10 flex flex-col pr-4 pl-4 gap-16 md:gap-24 lg:flex-row lg:gap-32 w-full">
