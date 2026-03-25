@@ -16,7 +16,7 @@ const Footer = () => {
     <footer
       ref={ref}
       id="contact"
-      className="w-full overflow-hidden relative z-10 flex flex-col items-center bg-black"
+      className=" overflow-hidden relative z-10 flex flex-col items-center bg-black"
       role="contentinfo"
       aria-label="Footer"
     >

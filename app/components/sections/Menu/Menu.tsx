@@ -74,13 +74,13 @@ const Menu = () => {
                         // === Category ===
                         <motion.div
                             key={category}
-                            className="w-full max-w-5xl "
+                            className="w-full max-w-5xl flex flex-col gap-4"
                             initial="hidden"
                             animate={isInView ? "visible" : "hidden"}
                             variants={fadeUpVariants}
                         >
                             <p
-                                className="text-white font-semibold text-3xl leading-tight tracking-wide cursor-pointer text-center mb-4 hover:text-golden"
+                                className="text-white font-semibold text-3xl leading-tight tracking-wide cursor-pointer text-center hover:text-golden"
                                 onClick={() => toggleCategory(category)}
                             >
                                 {displayName.charAt(0).toUpperCase() + displayName.slice(1)}
@@ -107,13 +107,13 @@ const Menu = () => {
                 {/* === Selected Items === */}
                 <motion.div
                     id="selected-menu"
-                    className="w-full max-w-5xl"
+                    className="w-full max-w-5xl flex flex-col gap-4"
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
                     variants={fadeUpVariants}
                 >
                     <p
-                        className="text-white font-semibold text-3xl leading-tight tracking-wide cursor-pointer text-center mb-4 hover:text-golden"
+                        className="text-white font-semibold text-3xl leading-tight tracking-wide cursor-pointer text-center hover:text-golden"
                         onClick={() => toggleCategory('selected')}
                     >
                         Selected {selectedItems.length > 0 && `(${selectedItems.length})`}

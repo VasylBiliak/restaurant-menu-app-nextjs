@@ -36,7 +36,7 @@ const FloatingMenuButton = () => {
                     
                     onClick={handleClick}
                     // Tailwind замість CSS
-                    className="fixed left-5 bottom-8 z-[1000] px-6 py-4 bg-golden text-black font-alt font-bold rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95 flex items-center gap-2"
+                    className="fixed left-5 bottom-8 z-100 px-6 py-4 bg-golden text-black font-alt font-bold rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95 flex items-center gap-2"
                 >
                     <span className="uppercase tracking-wider text-sm">Selected</span>
                     <span className="bg-black text-golden w-6 h-6 rounded-full flex items-center justify-center text-xs">

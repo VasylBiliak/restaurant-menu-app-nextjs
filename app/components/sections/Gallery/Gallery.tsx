@@ -45,7 +45,10 @@ const Gallery = () => {
     <section 
       ref={ref} 
       id="gallery" 
-      className="relative w-full flex flex-col gap-10"
+      className="flex justify-center items-center flex-col gap-10 
+  bg-[url('/images/bg/bg_wood.jpg')] bg-center bg-cover bg-repeat bg-fixed
+  pr-0! pl-0!
+      "
     >
       {/* SECTION HEADER */}
       <motion.div

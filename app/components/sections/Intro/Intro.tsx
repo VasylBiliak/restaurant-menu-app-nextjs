@@ -91,7 +91,7 @@ const Intro = () => {
             animate={isInView ? "visible" : "hidden"}
             transition={{ delay: 0.4 }}
           >
-            Once a hidden club, now <h2 className="uppercase tracking-[0.2em] text-golden">Toronto’s</h2> premier destination for those who seek the extraordinary. A journey of the senses awaits.
+            Once a hidden club, now <span className="uppercase tracking-[0.2em] text-golden">Toronto’s</span> premier destination for those who seek the extraordinary. A journey of the senses awaits.
           </motion.p>
 
           <motion.div

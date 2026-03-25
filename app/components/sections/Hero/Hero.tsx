@@ -15,7 +15,9 @@ import {
 const Hero = () => (
   // === Hero Section ===
   <motion.section
-className=""
+className="relative flex justify-center items-center gap-10 
+  bg-[url('/images/welcome.jpg')] bg-center bg-cover bg-repeat bg-fixed
+  pr-0! pl-0!"
     id="home"
     initial="hidden"
     animate="visible"
@@ -23,7 +25,7 @@ className=""
   >
     {/* === Left Content === */}
     <motion.div
-      className="flex-1 flex flex-col justify-center items-start"
+      className="text-center px-6 flex-1 flex flex-col justify-center items-start"
       variants={columnVariants}
     >
       <motion.h1
@@ -37,7 +39,7 @@ className=""
       </motion.h1>
 
       <motion.p
-        className="text-white my-8"
+        className="text-white my-8  text-justify"
         variants={fadeUpVariants}
       >
         Reverence can be tasted. At Biliakyn’s, thoughtfulness is the primary ingredient in everything we create.
@@ -53,23 +55,6 @@ className=""
           View Menu
         </button>
       </motion.div>
-    </motion.div>
-
-    {/* === Right Image === */}
-    <motion.div
-      className="flex-1 flex justify-center items-center mt-10 md:mt-0"
-      variants={imageRevealVariants}
-    >
-      <div className="relative w-full h-full min-h-96 flex justify-center items-center">
-        <Image
-          src={images.welcome}
-          alt="header_img"
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-contain w-4/5"
-        />
-      </div>
     </motion.div>
   </motion.section>
 );

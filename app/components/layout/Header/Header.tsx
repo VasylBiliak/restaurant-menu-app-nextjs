@@ -76,7 +76,7 @@ const Header = () => {
         <AnimatePresence>
           {toggleMenu && (
             <motion.div 
-              className="fixed top-0 left-0 w-full h-screen bg-black flex flex-col justify-center items-center z-40"
+              className="fixed top-0 left-0 w-screen h-screen bg-black flex flex-col justify-center items-center z-200"
               initial="hidden"
               animate="visible"
               exit="hidden"
