@@ -72,8 +72,8 @@ const Intro = () => {
       />
 
       <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-        <div className="flex max-w-720px flex-col items-center justify-center gap-6 p-8 text-center">
-          
+        <div className="flex max-w-720px flex-col items-center justify-center gap-6 p-6 text-center">
+
           <motion.h2
             className="font-base text-golden text-[clamp(2.5rem,5vw,4rem)] leading-[1.2] tracking-[0.04em] capitalize m-0"
             variants={fadeUpVariants}
@@ -95,7 +95,17 @@ const Intro = () => {
           </motion.p>
 
           <motion.div
-            className="mt-2 flex h-100px w-100px cursor-pointer items-center justify-center rounded-full border border-golden transition-all duration-300 hover:scale-110 hover:border-white active:scale-95"
+            className="
+    flex items-center justify-center cursor-pointer
+    rounded-full border border-golden
+    w-16 h-16
+    sm:w-20 sm:h-20
+    md:w-24 md:h-24
+    lg:w-28 lg:h-28
+    transition-all duration-300
+    hover:scale-110 hover:border-white
+    active:scale-95
+  "
             variants={fadeUpVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
@@ -104,13 +114,13 @@ const Intro = () => {
             onKeyDown={(e) => e.key === 'Enter' && handleToggleVideo()}
             role="button"
             tabIndex={0}
-            aria-label={playVideo ? 'Pause video' : 'Play video'}
+            aria-label={playVideo ? "Pause video" : "Play video"}
           >
-          {playVideo ? (
-            <BsPauseFill className="text-white text-2xl md:text-4xl lg:text-5xl transition-all" />
-          ) : (
-            <BsFillPlayFill className="text-white text-2xl md:text-4xl lg:text-5xl transition-all" />
-          )}
+            {playVideo ? (
+              <BsPauseFill className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl" />
+            ) : (
+              <BsFillPlayFill className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl" />
+            )}
           </motion.div>
         </div>
       </div>

@@ -33,8 +33,8 @@ const Gallery = () => {
 
   useEffect(() => {
     if (showFullGallery) return;
-    const id = setInterval(() => { 
-      if (!isPaused) paginate(1); 
+    const id = setInterval(() => {
+      if (!isPaused) paginate(1);
     }, AUTO_PLAY_INTERVAL_MS);
     return () => clearInterval(id);
   }, [isPaused, paginate, showFullGallery]);
@@ -42,103 +42,104 @@ const Gallery = () => {
   const toggleGallery = () => setShowFullGallery(!showFullGallery);
 
   return (
-    <section 
-      ref={ref} 
-      id="gallery" 
-      className="flex justify-center items-center flex-col gap-10 
+    <section
+      ref={ref}
+      id="gallery"
+      className="flex justify-center items-center 
   bg-[url('/images/bg/bg_wood.jpg')] bg-center bg-cover bg-repeat bg-fixed
-  pr-0! pl-0!
+  
       "
     >
-      {/* SECTION HEADER */}
-      <motion.div
-        className="flex flex-col items-center text-center px-6"
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        variants={fadeUpVariants}
-      >
-        <SectionTitle title="Gallery" isInView={isInView} />
-        <p className="text-gray-400 font-base text-base mt-4 mb-6 max-w-lg">
-          Explore our restaurant's atmosphere and delicious dishes through our curated gallery.
-        </p>
-        <button 
-          type="button" 
-          className="text-white font-base border-b border-golden pb-1 hover:text-golden transition-colors"
-          onClick={toggleGallery}
+      <div className="flex flex-col gap-8">
+        {/* SECTION HEADER */}
+        <motion.div
+          className="flex flex-col items-center text-center gap-4"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={fadeUpVariants}
         >
-          {showFullGallery ? 'View Less' : 'View More'}
-        </button>
-      </motion.div>
-
-      <div className="w-full relative min-h-96">
-        {!showFullGallery ? (
-          <motion.div
-            className="relative w-full overflow-hidden"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
+          <SectionTitle title="Gallery" isInView={isInView} />
+          <p className=" font-base text-base ">
+            Explore our restaurant's atmosphere and delicious dishes through our curated gallery.
+          </p>
+          <button
+            type="button"
+            className="text-white max-w-5xl font-base border-b border-golden pb-1 hover:text-golden transition-colors "
+            onClick={toggleGallery}
           >
-            <AnimatePresence initial={false} custom={direction} mode="popLayout">
-              <motion.div
-                key={currentIndex}
-                className="flex gap-4 px-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                {[currentIndex, (currentIndex + 1) % n].map((idx, arrayIndex) => (
-                  <div 
-                    key={`${idx}-${arrayIndex}`} 
-                    className={`relative flex-1 h-80 md:h-96 overflow-hidden rounded-sm group ${
-                      arrayIndex === 1 ? 'hidden md:block' : 'block'
-                    }`}
-                    style={{ minHeight: '400px' }}
-                  >
-                    <Image 
-                      src={GALLERY_IMAGES[idx]} 
-                      alt="gallery" 
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      priority={isInView}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      quality={85}
-                    />
-                  </div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
+            {showFullGallery ? 'View Less' : 'View More'}
+          </button>
+        </motion.div>
 
-            {/* NAVIGATION ARROWS */}
-            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-6 pointer-events-none z-10">
-              <BsArrowLeftShort 
-                className="text-white text-5xl cursor-pointer pointer-events-auto bg-black/40 rounded-2xl h-80 " 
-                onClick={() => paginate(-1)} 
-              />
-              <BsArrowRightShort 
-                className="text-white text-5xl cursor-pointer pointer-events-auto bg-black/40 rounded-2xl h-80 " 
-                onClick={() => paginate(1)} 
-              />
-            </div>
-          </motion.div>
-        ) : (
-          /* GRID MODE */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4">
-            {GALLERY_IMAGES.map((image, index) => (
-              <div 
-                key={index} 
-                className="relative h-64 overflow-hidden rounded-sm group"
-              >
-                <Image 
-                  src={image} 
-                  alt="grid item" 
-                  fill
-                  className="object-cover transition-transform group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  loading="lazy"
+        <div className="w-full relative min-h-96">
+          {!showFullGallery ? (
+            <motion.div
+              className="relative w-full overflow-hidden"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
+              <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                <motion.div
+                  key={currentIndex}
+                  className="flex gap-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {[currentIndex, (currentIndex + 1) % n].map((idx, arrayIndex) => (
+                    <div
+                      key={`${idx}-${arrayIndex}`}
+                      className={`relative flex-1 h-80 md:h-96 overflow-hidden rounded-sm group ${arrayIndex === 1 ? 'hidden md:block' : 'block'
+                        }`}
+                      style={{ minHeight: '400px' }}
+                    >
+                      <Image
+                        src={GALLERY_IMAGES[idx]}
+                        alt="gallery"
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        priority={isInView}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        quality={85}
+                      />
+                    </div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+
+              {/* NAVIGATION ARROWS */}
+              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
+                <BsArrowLeftShort
+                  className="text-white text-5xl cursor-pointer pointer-events-auto bg-black/40 rounded-2xl h-80 "
+                  onClick={() => paginate(-1)}
+                />
+                <BsArrowRightShort
+                  className="text-white text-5xl cursor-pointer pointer-events-auto bg-black/40 rounded-2xl h-80 "
+                  onClick={() => paginate(1)}
                 />
               </div>
-            ))}
-          </div>
-        )}
+            </motion.div>
+          ) : (
+            /* GRID MODE */
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {GALLERY_IMAGES.map((image, index) => (
+                <div
+                  key={index}
+                  className="relative h-64 overflow-hidden rounded-sm group"
+                >
+                  <Image
+                    src={image}
+                    alt="grid item"
+                    fill
+                    className="object-cover transition-transform group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

@@ -25,7 +25,7 @@ className="relative flex justify-center items-center gap-10
   >
     {/* === Left Content === */}
     <motion.div
-      className="text-center px-6 flex-1 flex flex-col justify-center items-start"
+      className="text-center px-4 flex-1 flex flex-col justify-center items-start"
       variants={columnVariants}
     >
       <motion.h1

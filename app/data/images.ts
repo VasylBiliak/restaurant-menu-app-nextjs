@@ -4,8 +4,11 @@ import gallery3 from '@/public/images/gallery/gallery3.jpg';
 import gallery4 from '@/public/images/gallery/gallery4.jpg';
 import gallery5 from '@/public/images/gallery/gallery5.jpg';
 import welcome from '@/public/images/welcome.jpg';
-import sign from '@/public/images/sign.svg';
+import signature from '@/public/images/sign.svg';
 import logo from '@/public/images/logo.svg';
+import chef from '@/public/images/chef/main_chef.jpg';
+import sousChef from '@/public/images/chef/pexels-svetographer-4282725.jpg';
+
 
 export default {
   gallery1,
@@ -14,6 +17,8 @@ export default {
   gallery4,
   gallery5,
   welcome,
-  sign,
+  signature,
   logo,
+  chef,
+  sousChef,
 };

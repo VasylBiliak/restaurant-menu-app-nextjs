@@ -12,6 +12,7 @@ const navLinks = [
   { id: 'about', label: 'About' },
   { id: 'gallery', label: 'Gallery' },
   { id: 'menu', label: 'Menu' },
+  { id: 'chef', label: 'Chef' },
   { id: 'book', label: 'Book Table' },
   { id: 'contact', label: 'Contact' },
 ];

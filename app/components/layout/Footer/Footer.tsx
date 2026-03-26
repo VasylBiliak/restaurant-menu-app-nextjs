@@ -20,7 +20,7 @@ const Footer = () => {
       role="contentinfo"
       aria-label="Footer"
     >
-      <div className="w-full max-w-[1280px] mx-auto flex flex-col lg:flex-row justify-between items-center lg:items-start mt-20 px-4 sm:px-6 lg:px-0">
+      <div className="w-full mx-auto flex flex-col lg:flex-row justify-between items-center lg:items-start mt-20 px-4 sm:px-6 lg:px-0">
         
         <motion.div
           className="flex-1 m-4 text-center w-full"

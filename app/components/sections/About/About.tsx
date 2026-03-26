@@ -16,10 +16,10 @@ const About = () => {
       id="about"
 className="relative flex justify-center items-center gap-10 
   bg-[url('/images/bg/bg_wood.jpg')] bg-center bg-cover bg-repeat bg-fixed
-  pr-0! pl-0!"
+  "
     >
       {/* === Content === */}
-      <div className="relative z-10 flex flex-col pr-8 pl-8 gap-16 md:gap-24 lg:flex-row lg:gap-32 w-full">
+      <div className="relative z-10 flex flex-col gap-10 md:gap-16 lg:flex-row lg:gap-20 w-full">
         
         {/* --- p1 --- */}
         <motion.div
