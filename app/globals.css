@@ -3,9 +3,26 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities"; */
 
+@font-face {
+  font-family: "Grestal Script";
+  src: url("/fonts/GrestalScript.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lucy the Cat";
+  src: url("/fonts/LucyTheCat.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme {
-  --font-base: "Dancing Script", cursive;
-  --font-alt: "Montserrat", sans-serif;
+--font-base: "Grestal Script", cursive;
+--font-alt: "Montserrat", sans-serif;
+--font-accent: "Grestal Script", cursive;
+--font-decorative: "Lucy the Cat", cursive;
+
   --color-golden: #DAC165;
   --color-black: #000000;
   --color-gray: #464141;
@@ -28,8 +45,18 @@
   h1, h2, h3 {
     font-family: var(--font-base);
   }
+
+  h2 {
+    font-size: var(--text-3xl) ;
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+
   p {
+    font-family: var(--font-decorative);
     text-align: justify;
+    font-size: var(--text-xl) ;
+    color: #ffffff;
+    background-color: #02020233;
   }
 
   main {
@@ -46,6 +73,10 @@ section {
   min-height: 100vh;
   padding: 0.5rem;
   padding-top: 5rem;
+}
+
+button {
+  font-family: var(--font-alt);
 }
 
 /* ≥ 480px */
@@ -96,4 +127,22 @@ section {
   }
 }
 
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37; /* color scrollbar  */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8962e;
 }

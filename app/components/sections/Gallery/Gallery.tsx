@@ -46,11 +46,10 @@ const Gallery = () => {
       ref={ref}
       id="gallery"
       className="flex justify-center items-center 
-  bg-[url('/images/bg/bg_wood.jpg')] bg-center bg-cover bg-repeat bg-fixed
-  
+      bg-[url('/images/bg/bg_wood.jpg')] bg-center bg-cover bg-repeat bg-fixed
       "
     >
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 w-full">
         {/* SECTION HEADER */}
         <motion.div
           className="flex flex-col items-center text-center gap-4"
@@ -59,12 +58,12 @@ const Gallery = () => {
           variants={fadeUpVariants}
         >
           <SectionTitle title="Gallery" isInView={isInView} />
-          <p className=" font-base text-base ">
+          <p className="">
             Explore our restaurant's atmosphere and delicious dishes through our curated gallery.
           </p>
           <button
             type="button"
-            className="text-white max-w-5xl font-base border-b border-golden pb-1 hover:text-golden transition-colors "
+            className="text-white max-w-5xl border-b border-golden pb-1 hover:text-golden transition-colors "
             onClick={toggleGallery}
           >
             {showFullGallery ? 'View Less' : 'View More'}
@@ -110,11 +109,11 @@ const Gallery = () => {
               {/* NAVIGATION ARROWS */}
               <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
                 <BsArrowLeftShort
-                  className="text-white text-5xl cursor-pointer pointer-events-auto bg-black/40 rounded-2xl h-80 "
+                  className="text-white text-5xl cursor-pointer pointer-events-auto rounded-2xl h-80 "
                   onClick={() => paginate(-1)}
                 />
                 <BsArrowRightShort
-                  className="text-white text-5xl cursor-pointer pointer-events-auto bg-black/40 rounded-2xl h-80 "
+                  className="text-white text-5xl cursor-pointer pointer-events-auto  rounded-2xl h-80 "
                   onClick={() => paginate(1)}
                 />
               </div>

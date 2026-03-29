@@ -21,7 +21,7 @@ const BookTable = () => {
     <section
       id="book"
       ref={ref}
-      className="mx-auto w-full"
+      className="mx-auto w-full flex flex-col gap-8"
     >
       <SectionTitle title="Book A Table" isInView={isInView} />
 

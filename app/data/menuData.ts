@@ -1,13 +1,33 @@
+import { img } from "framer-motion/client";
+import images from "./images";
+
 const appetizers = [
-  { id: 2, title: 'Truffle Beef Tartare', price: '$26', tags: 'Hand-cut prime beef | black truffle | quail egg yolk | sourdough' },
-  { id: 3, title: 'Burrata & Heirloom Tomato', price: '$22', tags: 'Fresh burrata | basil pesto | balsamic glaze | pine nuts' },
+  { id: 2, title: 'Truffle Beef Tartare', price: '$26', tags: 'Hand-cut prime beef | black truffle | quail egg yolk | sourdough', 
+    images: [
+    images.meel.src,
+    images.meel.src
+  ],
+  },
+  { id: 3, title: 'Burrata & Heirloom Tomato', price: '$22', tags: 'Fresh burrata | basil pesto | balsamic glaze | pine nuts',     
+    images: [
+    images.meel.src,
+    images.meel.src
+  ], 
+},
   { id: 4, title: 'Seared Scallops', price: '$28', tags: 'Hokkaido scallops | pea puree | pancetta crisp | lemon butter' },
   { id: 5, title: 'Oysters Rockefeller', price: '$30', tags: 'Six fresh oysters | spinach | herbs | parmesan crust' },
   { id: 6, title: 'Wild Mushroom Risotto Croquettes', price: '$18', tags: 'Arancini | truffle aioli | parmesan snow' },
   { id: 7, title: 'Yellowfin Tuna Carpaccio', price: '$24', tags: 'Capers | extra virgin olive oil | citrus zest | microgreens' },
   { id: 8, title: 'Crispy Calamari', price: '$19', tags: 'Spiced flour | ink aioli | charred lemon' },
   { id: 9, title: 'Foie Gras Terrine', price: '$32', tags: 'Fig compote | toasted brioche | sea salt' },
-  { id: 10, title: 'Grilled Octopus', price: '$25', tags: 'Chorizo | fingerling potatoes | smoked paprika oil' },
+  { id: 10, title: 'Grilled Octopus', price: '$25', tags: 'Chorizo | fingerling potatoes | smoked paprika oil',     
+    images: [
+    images.meel.src,
+    images.meel.src,
+    images.meel.src,
+    images.meel.src
+  ], 
+},
 ];
 
 const mainCourses = [

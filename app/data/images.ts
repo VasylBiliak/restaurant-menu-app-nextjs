@@ -6,8 +6,10 @@ import gallery5 from '@/public/images/gallery/gallery5.jpg';
 import welcome from '@/public/images/welcome.jpg';
 import signature from '@/public/images/sign.svg';
 import logo from '@/public/images/logo.svg';
-import chef from '@/public/images/chef/main_chef.jpg';
+import chefYang from '@/public/images/chef/chef.png';
+import chef from '@/public/images/chef/chef_2.png';
 import sousChef from '@/public/images/chef/pexels-svetographer-4282725.jpg';
+import meel from '@/public/images/meel/400х400.png';
 
 
 export default {
@@ -20,5 +22,7 @@ export default {
   signature,
   logo,
   chef,
+  chefYang,
   sousChef,
+  meel,
 };

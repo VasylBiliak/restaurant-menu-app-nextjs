@@ -15,8 +15,9 @@ import {
 const Hero = () => (
   // === Hero Section ===
   <motion.section
-className="relative flex justify-center items-center gap-10 
-  bg-[url('/images/welcome.jpg')] bg-center bg-cover bg-repeat bg-fixed
+className="relative flex justify-center items-center
+bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('/images/welcome.jpg')]
+bg-cover bg-center
   pr-0! pl-0!"
     id="home"
     initial="hidden"
@@ -25,7 +26,7 @@ className="relative flex justify-center items-center gap-10
   >
     {/* === Left Content === */}
     <motion.div
-      className="text-center px-4 flex-1 flex flex-col justify-center items-start"
+      className="text-center flex flex-col justify-center items-center m-4 gap-16"
       variants={columnVariants}
     >
       <motion.h1
@@ -39,17 +40,16 @@ className="relative flex justify-center items-center gap-10
       </motion.h1>
 
       <motion.p
-        className="text-white my-8  text-justify"
         variants={fadeUpVariants}
       >
         Reverence can be tasted. At Biliakyn’s, thoughtfulness is the primary ingredient in everything we create.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, vel modi facilis tempore vitae qui officiis aperiam, similique labore esse ad accusantium sapiente? Vel id quod enim animi, dolore eveniet!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
       </motion.p>
 
       <motion.div variants={fadeUpVariants}>
         <button
           type="button"
-          className="bg-golden text-black px-6 py-3 font-semibold cursor-pointer"
+          className="bg-golden text-black px-6 py-3 font-semibold cursor-pointer font-base"
           onClick={() => scrollToSection('menu')}
         >
           View Menu

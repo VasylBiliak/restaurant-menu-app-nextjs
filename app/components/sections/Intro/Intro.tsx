@@ -11,22 +11,18 @@ const Intro = () => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.25 });
 
-  // Автоматичне керування відео при скролі
   useEffect(() => {
     const video = vidRef.current;
     if (!video) return;
 
     if (isInView) {
       video.play().catch(() => {
-        // Деякі браузери блокують автоплей без взаємодії
-        console.log("Autoplay prevented");
       });
     } else {
       video.pause();
     }
   }, [isInView]);
 
-  // Синхронізація іконки зі станом відео
   useEffect(() => {
     const video = vidRef.current;
     if (!video) return;
@@ -55,12 +51,9 @@ const Intro = () => {
   };
 
   return (
-    <motion.section
+    <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden p-0! mw-1400px mx-auto!"
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 1.2, ease: easeSmooth }}
+      className="relative h-screen w-full overflow-hidden p-0! mw-1400px mx-auto!"      
     >
       <video
         ref={vidRef}
@@ -85,7 +78,7 @@ const Intro = () => {
           </motion.h2>
 
           <motion.p
-            className="font-alt text-white text-[clamp(1rem,2vw,1.25rem)] leading-[1.6] tracking-[0.04em] m-0"
+            className="bg-transparent!"
             variants={fadeUpVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
@@ -124,7 +117,7 @@ const Intro = () => {
           </motion.div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
