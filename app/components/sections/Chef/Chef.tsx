@@ -14,12 +14,12 @@ import SectionTitle from "../../sectionTitle/SectionTitle";
 const Chef = () => {
   const [isChef, setIsChef] = useState(true);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.15 });
+  const isInView = useInView(ref, { once: true, amount: 0.015 });
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsChef((prev) => !prev);
-    }, 5000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -41,12 +41,12 @@ const Chef = () => {
   <div className="flex flex-col gap-4 md:gap-8 max-w-[1200px] w-full">
     
     {/* === Text === */}
-    <motion.div className="flex flex-col text-center md:text-left gap-4 md:gap-8" variants={columnVariants}>
+    <motion.div className="flex flex-col text-center md:text-left gap-6 md:gap-8" variants={columnVariants}>
       <SectionTitle title="Chef" isInView={isInView} />
       <motion.h2 className="text-3xl md:text-5xl font-bold" variants={fadeUpVariants}>
         Crafted with passion
       </motion.h2>
-      <motion.p className="leading-relaxed mb-6" variants={fadeUpVariants}>
+      <motion.p className="leading-relaxed" variants={fadeUpVariants}>
         Every dish tells a story. Built on passion, precision, and respect
         for ingredients, each creation is designed to deliver more than
         taste — an experience that lingers and connects.

@@ -18,10 +18,10 @@
 }
 
 @theme {
---font-base: "Grestal Script", cursive;
---font-alt: "Montserrat", sans-serif;
---font-accent: "Grestal Script", cursive;
---font-decorative: "Lucy the Cat", cursive;
+  --font-base: "Grestal Script", cursive;
+  /* --font-alt: "Comfortaa", sans-serif; */
+  --font-alt: "Montserrat", cursive;
+  --font-decorative: "Lucy the Cat", cursive;
 
   --color-golden: #DAC165;
   --color-black: #000000;
@@ -46,13 +46,19 @@
     font-family: var(--font-base);
   }
 
+  h1 {
+    font-family: var(--font-decorative);
+  }
   h2 {
+
     font-size: var(--text-3xl) ;
     line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
 
   p {
-    font-family: var(--font-decorative);
+    /* font-family: var(--font-decorative); */
+    font-family: var(--font-alt);
+    /* font-style: italic; */
     text-align: justify;
     font-size: var(--text-xl) ;
     color: #ffffff;

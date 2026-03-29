@@ -17,7 +17,7 @@ const SectionTitle = ({ title, isInView }: SectionTitleProps) => (
     animate={isInView ? "visible" : "hidden"}
     variants={fadeDownVariants}
   >
-    <h1 className="text-4xl text-golden font-base">
+    <h1 className="text-4xl text-golden">
       {title}
     </h1>
   </motion.div>

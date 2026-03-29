@@ -81,7 +81,7 @@ const Menu = () => {
                                 variants={fadeUpVariants}
                             >
                                 <h3
-                                    className="text-white font-accent font-bold text-3xl leading-tight tracking-wide cursor-pointer text-center hover:text-golden"
+                                    className="text-white font-bold text-3xl leading-tight tracking-wide cursor-pointer text-center hover:text-golden"
                                     onClick={() => toggleCategory(category)}
                                 >
                                     {displayName.charAt(0).toUpperCase() + displayName.slice(1)}
@@ -114,7 +114,7 @@ const Menu = () => {
                         variants={fadeUpVariants}
                     >
                         <h3
-                            className="text-white font-accent font-bold text-3xl leading-tight tracking-wide cursor-pointer text-center hover:text-golden"
+                            className="text-white font-bold text-3xl leading-tight tracking-wide cursor-pointer text-center hover:text-golden"
                             onClick={() => toggleCategory('selected')}
                         >
                             Selected {selectedItems.length > 0 && `(${selectedItems.length})`}

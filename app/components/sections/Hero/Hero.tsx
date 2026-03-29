@@ -15,7 +15,7 @@ import {
 const Hero = () => (
   // === Hero Section ===
   <motion.section
-className="relative flex justify-center items-center
+    className="relative flex justify-center items-center
 bg-[linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('/images/welcome.jpg')]
 bg-cover bg-center
   pr-0! pl-0!"
@@ -43,7 +43,7 @@ bg-cover bg-center
         variants={fadeUpVariants}
       >
         Reverence can be tasted. At Biliakyn’s, thoughtfulness is the primary ingredient in everything we create.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </motion.p>
 
       <motion.div variants={fadeUpVariants}>

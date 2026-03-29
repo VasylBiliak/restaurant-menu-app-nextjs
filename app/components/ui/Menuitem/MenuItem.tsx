@@ -65,7 +65,7 @@ const MenuItem = ({ title, price, tags, selected, images = [], onSelect }: MenuI
                    hover:text-golden
                    after:absolute after:left-0 after:bottom-0
                    after:h-[1px] after:w-full
-                   after:bg-golden
+                   after:bg-golden md:ml-auto lg:ml-auto
                    after:scale-x-0 after:origin-left
                    after:transition-transform
                    hover:after:scale-x-100
@@ -78,7 +78,7 @@ const MenuItem = ({ title, price, tags, selected, images = [], onSelect }: MenuI
 
 
 
-        <p className="w-full min-w-0 font-alt text-sm italic wrap-break-word justify-start items-start">
+        <p className="w-full min-w-0 text-sm italic wrap-break-word justify-start items-start">
           {tags}
         </p>
       </div>
