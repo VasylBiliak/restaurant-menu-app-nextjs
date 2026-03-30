@@ -3,8 +3,15 @@ import Footer from "@/app/components/layout/Footer/Footer";
 import FloatingMenuButton from "@/app/components/shared/FloatingMenuButton/FloatingMenuButton";
 import GlobalGallery from "@/app/components/ui/GlobalGallery/GlobalGallery";
 import { MenuProvider } from "@/app/context/MenuContext";
+import { Montserrat } from "next/font/google";
 
 import "./globals.css";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
 
 export const metadata = {
   title: {
@@ -84,7 +91,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={montserrat.variable}>
       <body>
         <MenuProvider>
           <Header />

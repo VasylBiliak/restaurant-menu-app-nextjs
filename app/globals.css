@@ -6,22 +6,21 @@
 @font-face {
   font-family: "Grestal Script";
   src: url("/fonts/GrestalScript.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Lucy the Cat";
   src: url("/fonts/LucyTheCat.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
+  font-display: swap;
 }
 
 @theme {
   --font-base: "Grestal Script", cursive;
-  /* --font-alt: "Comfortaa", sans-serif; */
-  --font-alt: "Montserrat", cursive;
+  --font-alt: var(--font-montserrat), system-ui, sans-serif;
   --font-decorative: "Lucy the Cat", cursive;
+  /* --font-alt: "Comfortaa", sans-serif; */
+
 
   --color-golden: #DAC165;
   --color-black: #000000;
@@ -49,16 +48,19 @@
   h1 {
     font-family: var(--font-decorative);
   }
-  h2 {
 
+  h2 {
     font-size: var(--text-3xl) ;
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
+    line-height: var(--tw-leading, 
+    var(--text-3xl--line-height));
+  }
+
+  h3 {
+    font-family: var(--font-alt);
   }
 
   p {
-    /* font-family: var(--font-decorative); */
     font-family: var(--font-alt);
-    /* font-style: italic; */
     text-align: justify;
     font-size: var(--text-xl) ;
     color: #ffffff;
@@ -71,8 +73,6 @@
   }
 
 section {
-  margin-left: auto;
-  margin-right: auto;
   min-height: 100vh;
   max-width: 1400px;
   margin: 0 auto;
