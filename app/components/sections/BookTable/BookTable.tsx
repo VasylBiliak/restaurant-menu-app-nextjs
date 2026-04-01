@@ -41,8 +41,19 @@ const BookTable = () => {
 
   const inputStyle = `
     w-full bg-transparent text-golden font-alt text-2xl outline-none 
-    placeholder:text-white/70 [color-scheme:dark] min-[2000px]:text-[2rem]
+    placeholder:text-white/40 [color-scheme:dark] min-[2000px]:text-[2rem]
   `;
+
+  const FieldWrapper = ({ label, children, gridArea, placeholder }: { label: string; children: React.ReactNode; gridArea: string; placeholder?: string }) => (
+    <motion.div 
+      variants={fadeUpVariants} 
+      className={`${gridArea} flex flex-col gap-1 md:gap-2 lg:gap-4 border-b border-white/20 group relative pb-1 md:pb-2 transition-all hover:border-golden`}
+    >
+      <label className="text-xl uppercase tracking-widest text-white/90">{label}</label>
+      {children}
+      <div className="absolute bottom-[-1px] left-0 h-[1px] w-full bg-golden scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100" />
+    </motion.div>
+  );
 
   return (
     <section id="book" ref={ref} className="mx-auto w-full flex flex-col gap-4 md:gap-8 lg:gap-10">
@@ -52,91 +63,74 @@ const BookTable = () => {
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="flex flex-col gap-4 md:gap-8 lg:gap-10"
+        className="grid grid-cols-2 gap-x-[5px] gap-y-[20px] md:gap-x-10 md:gap-y-[30px]"
         onSubmit={(e) => e.preventDefault()}
       >
-        {/* SECTION: PERSONAL INFO */}
-        <div className="grid grid-cols-1 gap-4 md:gap-8 lg:gap-10 md:grid-cols-2">
-          <motion.div variants={fadeUpVariants} className="flex flex-col gap-1 md:gap-2 lg:gap-4  border-b border-white/20 group relative">
-            <label className="text-xl uppercase tracking-widest">Full Name</label>
-            <input type="text" placeholder="John Doe" required className={inputStyle} />
-          </motion.div>
-          <motion.div variants={fadeUpVariants} className="flex flex-col 
-          gap-1 md:gap-2 lg:gap-4 
-          border-b border-white/20 group relative">
-            <label className="text-xl uppercase tracking-widest">Email Address</label>
-            <input type="email" placeholder="example@mail.com" required className={inputStyle} />
-          </motion.div>
-        </div>
+        {/* Full Name */}
+        <FieldWrapper label="Full Name" gridArea="col-span-2 md:col-span-1">
+          <input type="text" placeholder="John Doe" required className={inputStyle} />
+        </FieldWrapper>
 
-        {/* SECTION: CONTACT & PARTY */}
-        <div className="grid grid-cols-1 gap-4 md:gap-8 lg:gap-10 md:grid-cols-1">
-          <motion.div variants={fadeUpVariants} className="flex flex-col 
-          gap-1 md:gap-2 lg:gap-4 
-           border-b border-white/20 group relative">
-            <label className="text-xl uppercase tracking-widest">Phone Number</label>
-            <input type="tel" placeholder="+1 (___) ___ ____" required className={inputStyle} />
-          </motion.div>
+        {/* Email Address */}
+        <FieldWrapper label="Email Address" gridArea="col-span-2 md:col-span-1">
+          <input type="email" placeholder="example@mail.com" required className={inputStyle} />
+        </FieldWrapper>
 
-          <CustomSelect
-            label="Party Size"
-            value={selectedPartySize}
-            options={partyOptions}
-            isOpen={openMenu === "party"}
-            onToggle={() => toggleMenu("party")}
-            onSelect={(val: string) => { setSelectedPartySize(val); setOpenMenu(null); }}
-            variants={fadeUpVariants}
-          />
-        </div>
+        {/* div3: Phone Number */}
+        <FieldWrapper label="Phone Number" gridArea="col-span-2 md:col-span-1">
+          <input type="tel" placeholder="+1 (___) ___ ____" required className={inputStyle} />
+        </FieldWrapper>
 
-        {/* SECTION: DATE & TIME */}
-        <div className="grid grid-cols-1 gap-4 md:gap-8 lg:gap-10 md:grid-cols-2">
-          <CustomSelect
-            label="Date"
-            value={formatDate(selectedDate)}
-            options={dateOptions.map(d => ({ label: formatDate(d), value: d }))}
-            isOpen={openMenu === "date"}
-            onToggle={() => toggleMenu("date")}
-            onSelect={(opt: any) => { setSelectedDate(opt.value); setOpenMenu(null); }}
-            variants={fadeUpVariants}
-          />
+        {/* Party Size */}
+        <CustomSelect
+          label="Party Size"
+          value={selectedPartySize}
+          options={partyOptions}
+          isOpen={openMenu === "party"}
+          onToggle={() => toggleMenu("party")}
+          onSelect={(val: string) => { setSelectedPartySize(val); setOpenMenu(null); }}
+          variants={fadeUpVariants}
+          className="col-span-1 md:col-span-1"
+        />
 
-          <CustomSelect
-            label="Time"
-            value={selectedTime}
-            options={timeOptions}
-            isOpen={openMenu === "time"}
-            onToggle={() => toggleMenu("time")}
-            onSelect={(val: string) => { setSelectedTime(val); setOpenMenu(null); }}
-            variants={fadeUpVariants}
-          />
-        </div>
+        {/* Date */}
+<CustomSelect
+  label="Time"
+  value={selectedTime}
+  options={timeOptions}
+  isOpen={openMenu === "time"}
+  onToggle={() => toggleMenu("time")}
+  onSelect={(val: string) => { setSelectedTime(val); setOpenMenu(null); }}
+  variants={fadeUpVariants}
+  className="col-span-1 md:col-span-1"
+/>
 
-        {/* SECTION: REQUESTS */}
-        <motion.div variants={fadeUpVariants} className="flex flex-col 
-        gap-1 md:gap-2 lg:gap-4 
-        border-b border-white/20 group relative">
-          <label className=" text-xl uppercase tracking-widest">Special Requests</label>
+<CustomSelect
+  label="Date"
+  value={formatDate(selectedDate)}
+  options={dateOptions.map(d => ({ label: formatDate(d), value: d }))}
+  isOpen={openMenu === "date"}
+  onToggle={() => toggleMenu("date")}
+  onSelect={(opt: any) => { setSelectedDate(opt.value); setOpenMenu(null); }}
+  variants={fadeUpVariants}
+  className="col-span-2 md:col-span-1"
+/>
+        {/* Special Requests */}
+        <FieldWrapper label="Special Requests" gridArea="col-span-2">
           <textarea placeholder="Tell us anything..." rows={1} className={`${inputStyle} resize-none`} />
-        </motion.div>
+        </FieldWrapper>
 
-        {/* SUBMIT SECTION */}
-        <motion.div variants={fadeUpVariants} className="flex justify-center">
+        {/* Submit Section */}
+        <motion.div variants={fadeUpVariants} className="col-span-2 flex justify-center pt-4">
           <button
             type="submit"
-            className="group relative text-2xl cursor-pointer overflow-hidden border-2 border-golden px-12 py-4   tracking-[0.2em] text-white transition-all hover:bg-golden hover:text-black active:scale-95 min-[2000px]:text-[1.8rem] mt-4"
+            className="group relative text-2xl cursor-pointer overflow-hidden border-2 border-golden px-12 py-4 tracking-[0.2em] text-white transition-all hover:bg-golden hover:text-black active:scale-95 w-full md:w-auto font-alt"
           >
-            <span className="relative z-10">Book</span>
+            <span className="relative z-10 font-bold uppercase">Book</span>
             <div className="absolute inset-0 z-0 translate-y-full bg-golden transition-transform duration-300 group-hover:translate-y-0" />
           </button>
         </motion.div>
       </motion.form>
-
-      <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #000; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #D4AF37; }
-      `}</style>
     </section>
   );
 };
