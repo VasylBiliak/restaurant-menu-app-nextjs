@@ -15,7 +15,7 @@ interface CustomSelectProps {
 
 const FormField = ({ label, children, variants }: { label: string; children: React.ReactNode; variants: any }) => (
   <motion.div variants={variants} className="relative flex flex-col w-full group gap-2">
-    <label className="text-golden font-alt text-xl uppercase tracking-widest">
+    <label className="text-xl uppercase tracking-widest">
       {label}
     </label>
     <div className="relative flex items-center border-b border-white/20 pb-2 transition-all group-hover:border-golden">
@@ -28,11 +28,11 @@ const FormField = ({ label, children, variants }: { label: string; children: Rea
 const CustomSelect = ({ label, value, options, isOpen, onToggle, onSelect, variants }: CustomSelectProps) => {
   return (
     <FormField label={label} variants={variants}>
-      <div className="relative w-full font-alt">
+      <div className="relative w-full ">
         <button
           type="button"
           onClick={onToggle}
-          className="w-full bg-transparent text-white text-2xl text-left py-1 outline-none flex justify-between items-center cursor-pointer min-[2000px]:text-[2rem]"
+          className="font-alt w-full bg-transparent text-golden text-2xl text-left py-1 outline-none flex justify-between items-center cursor-pointer min-[2000px]:text-[2rem]"
         >
           {value}
           <svg 

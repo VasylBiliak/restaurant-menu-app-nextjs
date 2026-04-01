@@ -25,7 +25,7 @@ export default function FullScreenGallery({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed justify-items-center items-center inset-0  z-400 bg-red/50 backdrop-blur-sm ">
+    <div className="fixed justify-items-center items-center inset-0  z-400 bg-red/50 backdrop-blur-sm max-[1400px]">
 
       {/* 🔥 КНОПКА ЗАВЖДИ ПОВЕРХ */}
       
