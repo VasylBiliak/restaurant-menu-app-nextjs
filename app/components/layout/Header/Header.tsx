@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <motion.header
-      className="text-white bg-black w-full flex justify-between items-center py-2 px-4 fixed top-0 left-0 z-100 sm:px-4"
+      className="text-white bg-black w-full flex justify-between items-center py-2 px-2 fixed top-0 left-0 z-100 sm:px-4"
       initial="hidden"
       animate="visible"
       variants={fadeDownVariants}
@@ -37,7 +37,7 @@ const Header = () => {
         <Image 
           src={images.logo} 
           alt="Restaurant Logo"
-          className="w-30 h-10"
+          className="w-40 h-15"
           onClick={() => handleNavClick('home')}
         />
       </div>
@@ -70,7 +70,7 @@ const Header = () => {
         >
           <GiForkKnifeSpoon
             className="text-white hover:text-golden transition-colors rotate-270"
-            fontSize={30}
+            fontSize={35}
           />
         </button>
 
@@ -88,7 +88,7 @@ const Header = () => {
                 aria-label="Close Menu"
                 onClick={() => setToggleMenu(false)}
               >
-                <GiKnifeFork className="text-2xl text-white hover:text-golden transition-colors" />
+                <GiKnifeFork className="text-3xl text-white hover:text-golden transition-colors" />
               </button>
 
               <nav>
@@ -96,7 +96,7 @@ const Header = () => {
                   {navLinks.map((link) => (
                     <li
                       key={link.id}
-                      className="m-8 text-2xl text-center font-base text-white hover:text-yellow-300 cursor-pointer"
+                      className="m-8 text-3xl text-center font-base text-white hover:text-yellow-300 cursor-pointer"
                     >
                       <a 
                         href={`#${link.id}`} 

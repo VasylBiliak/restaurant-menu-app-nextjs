@@ -75,7 +75,7 @@ const Menu = () => {
                             // === Category ===
                             <motion.div
                                 key={category}
-                                className="w-full max-w-5xl flex flex-col gap-4"
+                                className="w-full max-w-3xl flex flex-col gap-4"
                                 initial="hidden"
                                 animate={isInView ? "visible" : "hidden"}
                                 variants={fadeUpVariants}

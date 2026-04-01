@@ -12,7 +12,7 @@ type SectionTitleProps = {
 const SectionTitle = ({ title, isInView }: SectionTitleProps) => (
   // === Section Title ===
   <motion.div
-    className="text-center font-bold capitalize flex w-full justify-center"
+    className="text-center capitalize flex w-full justify-center"
     initial="hidden"
     animate={isInView ? "visible" : "hidden"}
     variants={fadeDownVariants}

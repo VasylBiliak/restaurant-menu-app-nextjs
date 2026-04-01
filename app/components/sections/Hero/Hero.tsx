@@ -49,7 +49,7 @@ bg-cover bg-center
       <motion.div variants={fadeUpVariants}>
         <button
           type="button"
-          className="bg-golden text-black px-6 py-3 font-semibold cursor-pointer font-base"
+            className="group relative text-2xl cursor-pointer overflow-hidden border-2 border-golden px-12 py-4   tracking-[0.2em] text-white transition-all hover:bg-golden hover:text-black active:scale-95 min-[2000px]:text-[1.8rem] mt-4"
           onClick={() => scrollToSection('menu')}
         >
           View Menu

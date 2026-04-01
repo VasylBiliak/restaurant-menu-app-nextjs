@@ -3,13 +3,27 @@ import Footer from "@/app/components/layout/Footer/Footer";
 import FloatingMenuButton from "@/app/components/shared/FloatingMenuButton/FloatingMenuButton";
 import GlobalGallery from "@/app/components/ui/GlobalGallery/GlobalGallery";
 import { MenuProvider } from "@/app/context/MenuContext";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Almendra, Marcellus } from "next/font/google";
 
 import "./globals.css";
+
+const marcellus = Marcellus({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-marcellus",
+  display: "swap",
+});
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
+  display: "swap",
+});
+
+const almendra = Almendra({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-decorative",
   display: "swap",
 });
 
@@ -91,7 +105,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={montserrat.variable}>
+    <html lang="en" className={`${marcellus.variable} ${montserrat.variable} ${almendra.variable}`}>
       <body>
         <MenuProvider>
           <Header />

@@ -40,14 +40,14 @@ const MenuItem = ({ title, price, tags, selected, images = [], onSelect }: MenuI
                 <span className="text-black text-sm font-bold leading-none">✔</span>
               )}
             </div>
-            <p className="font-base text-golden text-xl tracking-wider leading-tight">
+            <p className=" text-golden text-xl tracking-wider leading-tight">
               {title}
             </p>
           </div>
 
           {/* 2nd column: Price */}
           <div className="flex justify-end items-start row-start-1 row-end-2 sm:items-center sm:col-start-3">
-            <p className="font-base text-lg font-semibold text-golden">{price}</p>
+            <p className="text-lg font-semibold text-golden">{price}</p>
           </div>
 
           {/* Button occupies second row on mobile, middle column on desktop */}
@@ -60,7 +60,7 @@ const MenuItem = ({ title, price, tags, selected, images = [], onSelect }: MenuI
                   payload: images,
                 });
               }}
-              className="font-base font-bold text-xl px-1 mx-2 text-white transition relative
+              className="text-xl px-1 mx-2 text-white  relative
                    focus:outline-none
                    hover:text-golden
                    after:absolute after:left-0 after:bottom-0
