@@ -96,7 +96,7 @@ const Header = () => {
                   {navLinks.map((link) => (
                     <li
                       key={link.id}
-                      className="m-8 text-3xl text-center font-base text-white hover:text-yellow-300 cursor-pointer"
+                      className="m-8 text-3xl text-center font-base text-white hover:text-golden cursor-pointer"
                     >
                       <a 
                         href={`#${link.id}`} 
