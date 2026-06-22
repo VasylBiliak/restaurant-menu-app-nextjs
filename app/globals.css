@@ -1,0 +1,148 @@
+@import "tailwindcss";
+/* @import "preflight";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
+
+@theme {
+--font-base: var(--font-marcellus), serif;
+  --font-alt: var(--font-montserrat), sans-serif;
+  --font-decorative: var(--font-almendra), serif;
+  /* --font-alt: "Comfortaa", sans-serif; */
+
+
+  --color-golden: #DAC165;
+  --color-black: #000000;
+  --color-gray: #464141;
+  --color-crimson: rgba(227, 204, 231, 0.96);
+  --color-grey: #AAAAAA;
+  --color-white: #ffffff;
+  --color-text: #ffffff;
+}
+
+@layer base {
+  html, body {
+    background-color: #020202;
+    color: #ffffff;
+    font-family: var(--font-alt);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100vw;
+  }
+
+  h1 {
+    font-family: var(--font-base);
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+
+  h2 {
+    font-size: var(--text-3xl) ;
+    line-height: var(--tw-leading, 
+    var(--text-3xl--line-height));
+  }
+
+  h3 {
+    font-family: var(--font-alt);
+  }
+
+  p {
+    font-family: var(--font-alt);
+    text-align: justify;
+    font-size: var(--text-xl) ;
+    color: #ffffff;
+    background-color: #02020233;
+  }
+
+  main {
+    width: 100%;
+    background-color: black;
+  }
+
+  section {
+    min-height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 0.5rem;
+    padding-top: 5rem;
+  }
+
+  button {
+    font-family: var(--font-decorative);    
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  label {
+    font-family: var(--font-alt);
+    color: var(--color-text);
+  }
+
+/* ≥ 480px */
+@media (min-width: 480px) {
+  section {
+    padding: 1rem;
+    padding-top: 5.5rem;
+  }
+}
+
+/* ≥ 640px (sm) */
+@media (min-width: 640px) {
+  section {
+    padding: 1.5rem;
+    padding-top: 6rem;
+  }
+}
+
+/* ≥ 768px (md) */
+@media (min-width: 768px) {
+  section {
+    padding: 3rem;
+    padding-top: 6rem;
+  }
+}
+
+/* ≥ 1024px (lg) */
+@media (min-width: 1024px) {
+  section {
+    padding: 4rem;
+    padding-top: 6rem;
+  }
+}
+
+/* ≥ 1280px (xl) */
+@media (min-width: 1280px) {
+  section {
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 6rem;
+  }
+}
+
+@media (min-width: 2400px) {
+  section {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
+
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37; /* color scrollbar  */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8962e;
+}
