@@ -4,10 +4,12 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import SectionTitle from "@/app/components/sectionTitle/SectionTitle";
 import { fadeUpVariants } from "@/app/utils/animations";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const { t } = useTranslation();
 
   return (
     // === About Section ===
@@ -28,9 +30,9 @@ className="relative flex justify-center items-center gap-10
           animate={isInView ? "visible" : "hidden"}
           variants={fadeUpVariants}
         >
-          <SectionTitle title="About Us" isInView={isInView} />
+          <SectionTitle title={t('about_title')} isInView={isInView} />
           <p className="max-w-450px md:max-w-550px lg:max-w-700px md:text-lg 2xl:text-xl">
-            Reverence can be tasted.
+            {t('about_description')}
             Biliakyn’s kitchen is lucid, elemental, and soulful. Our mission is to create experiences that engage every sense — dishes that restore the spirit, challenge the palate, and enrich the connection between the land and the plate.
           </p>
         </motion.div>
@@ -42,9 +44,9 @@ className="relative flex justify-center items-center gap-10
           animate={isInView ? "visible" : "hidden"}
           variants={fadeUpVariants}
         >
-          <SectionTitle title="We are!" isInView={isInView} />
+          <SectionTitle title={t('about_we_are_title')} isInView={isInView} />
           <p className="max-w-450px md:max-w-550px lg:max-w-700px md:text-lg 2xl:text-xl">
-            Elemental means force and stands for the living formative forces of the North. These forces are not visible, but their biologic 'footprints' are. At Biliakyn’s, we observe and understand the invisible connections between the formative forces of nature and the physical matter of the ingredients we serve. Here, <span >Toronto’s</span> premier dining meets the raw soul of the wilderness.
+            {t('about_we_are_description')}
           </p>
         </motion.div>
 

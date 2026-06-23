@@ -4,12 +4,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { BsFillPlayFill, BsPauseFill } from 'react-icons/bs';
 import { easeSmooth, fadeUpVariants } from '@/app/utils/animations';
+import { useTranslation } from '@/app/hooks/useTranslation';
 
 const Intro = () => {
   const [playVideo, setPlayVideo] = useState(false);
   const vidRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.25 });
+  const { t } = useTranslation();
 
   useEffect(() => {
     const video = vidRef.current;
@@ -74,7 +76,7 @@ const Intro = () => {
             animate={isInView ? "visible" : "hidden"}
             transition={{ delay: 0.2 }}
           >
-            Thoughtfulness in every detail.
+            {t('intro_title')}
           </motion.h2>
 
           <motion.p
@@ -84,7 +86,7 @@ const Intro = () => {
             animate={isInView ? "visible" : "hidden"}
             transition={{ delay: 0.4 }}
           >
-            Once a hidden club, now <span className="uppercase tracking-[0.2em] text-golden">Toronto’s</span> premier destination for those who seek the extraordinary. A journey of the senses awaits.
+            {t('intro_description')}
           </motion.p>
 
           <motion.div
@@ -107,7 +109,7 @@ const Intro = () => {
             onKeyDown={(e) => e.key === 'Enter' && handleToggleVideo()}
             role="button"
             tabIndex={0}
-            aria-label={playVideo ? "Pause video" : "Play video"}
+            aria-label={playVideo ? t('intro_pause_video') : t('intro_play_video')}
           >
             {playVideo ? (
               <BsPauseFill className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl" />

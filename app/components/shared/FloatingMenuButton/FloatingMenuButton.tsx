@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MenuContext from "@/app/context/MenuContext";
 import { scaleInVariants } from "@/app/utils/animations";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 export const scrollToSelectedMenue = (id: string, headerHeight = 0) => {
   const element = document.getElementById(id);
@@ -29,6 +30,7 @@ const FloatingMenuButton = () => {
 
     const { state, dispatch } = context;
     const hasItems = state.selectedItems.length > 0;
+    const { t } = useTranslation();
 
     const handleClick = () => {
         dispatch({ type: 'SET_SELECTED_OPEN', payload: true });
@@ -49,7 +51,7 @@ const FloatingMenuButton = () => {
                     onClick={handleClick}        
                     className="fixed left-5 bottom-8 z-1000 px-5 py-2 bg-golden text-black font-alt font-bold rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95 flex items-center gap-2"
                 >
-                    <span className="uppercase tracking-wider text-sm font-alt" >Selected</span>
+                    <span className="uppercase tracking-wider text-sm font-alt" >{t('floating_menu_selected')}</span>
                     <span className="bg-black text-golden w-8 h-8 rounded-full flex items-center justify-center font-base text-lg">
                         {state.selectedItems.length}
                     </span>

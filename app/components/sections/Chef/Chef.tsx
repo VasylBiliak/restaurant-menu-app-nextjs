@@ -10,11 +10,13 @@ import {
   fadeUpVariants,
 } from "@/app/utils/animations";
 import SectionTitle from "../../sectionTitle/SectionTitle";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 const Chef = () => {
   const [isChef, setIsChef] = useState(true);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.015 });
+  const { t } = useTranslation();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,14 +44,12 @@ const Chef = () => {
     
     {/* === Text === */}
     <motion.div className="flex flex-col text-center md:text-left gap-6 md:gap-8" variants={columnVariants}>
-      <SectionTitle title="Chef" isInView={isInView} />
+      <SectionTitle title={t('chef_title')} isInView={isInView} />
       <motion.h2 className="text-3xl md:text-5xl font-bold" variants={fadeUpVariants}>
-        Crafted with passion
+        {t('chef_subtitle')}
       </motion.h2>
       <motion.p className="leading-relaxed" variants={fadeUpVariants}>
-        Every dish tells a story. Built on passion, precision, and respect
-        for ingredients, each creation is designed to deliver more than
-        taste — an experience that lingers and connects.
+        {t('chef_description')}
       </motion.p>
     </motion.div>
 
@@ -81,7 +81,7 @@ const Chef = () => {
 
       {/* === Text & signature === */}
       <motion.div className="flex flex-col items-center sm:items-start gap-4 md:gap-8" variants={fadeUpVariants}>
-        <SectionTitle title={isChef ? "Chef Biliak" : "Sous-chef"} isInView={isInView} />
+        <SectionTitle title={isChef ? t('chef_biliak') : t('chef_sous_chef')} isInView={isInView} />
         <p className="text-center sm:text-left">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. In vel deserunt, sequi ullam iste similique
         </p>

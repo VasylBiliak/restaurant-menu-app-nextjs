@@ -6,12 +6,14 @@ import { motion, useInView } from "framer-motion";
 import { FiInstagram, FiFacebook } from "react-icons/fi";
 import images from "@/app/data/images";
 import SectionTitle from "../../sectionTitle/SectionTitle";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 const easeSmooth = [0.65, 0, 0.35, 1] as const;
 
 const Footer = () => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const { t } = useTranslation();
 
   return (
     <footer
@@ -30,7 +32,7 @@ const Footer = () => {
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 1, ease: easeSmooth, delay: 0.1 }}
         >
-          <SectionTitle title="Contact Us" isInView={isInView} />
+          <SectionTitle title={t('footer_contact_us')} isInView={isInView} />
           <address className="not-italic space-y-1"> <p className="font-alt text-white opacity-80"> <a href="tel:+14165550198" className="hover:underline"> +1 416-555-0198 </a> </p> <p className="font-alt text-white opacity-80"> <a href="mailto:contact@b.com" className="hover:underline"> contact@b.com </a> </p> <p className="font-alt text-white opacity-80"> 159 King St, Toronto, ON M5V 1M1, Canada </p> </address>
 
           <div className="rounded-lg overflow-hidden border border-golden/20 grayscale hover:grayscale-0 transition-all duration-500 shadow-lg w-full h-[250px]">
@@ -53,7 +55,7 @@ const Footer = () => {
           <div className="w-40 md:w-52 2xl:w-64 max-[350px]:w-4/5">
             <Image
               src={images.logo}
-              alt="Biliakyn Dining restaurant logo"
+              alt={t('footer_logo_alt')}
               width={256}
               height={128}
               className="w-full h-auto"
@@ -62,20 +64,20 @@ const Footer = () => {
           </div>
 
           <p className="font-alt text-white opacity-80 italic max-w-md text-center">
-            "The secret of success is to treat every guest as if they were a member of your own family"
+            "{t('footer_quote')}"
           </p>
 
           <div className="flex justify-center items-center gap-4">
             <a
               href="#"
-              aria-label="Facebook"
+              aria-label={t('footer_facebook_label')}
               className="text-white text-2xl hover:text-golden transition-colors"
             >
               <FiFacebook />
             </a>
             <a
               href="#"
-              aria-label="Instagram"
+              aria-label={t('footer_instagram_label')}
               className="text-white text-2xl hover:text-golden transition-colors"
             >
               <FiInstagram />
@@ -93,17 +95,17 @@ const Footer = () => {
           transition={{ duration: 1, ease: easeSmooth, delay: 0.1 }}
         >
           <h2 className="font-base text-white tracking-wider capitalize text-3xl leading-snug 2xl:text-5xl">
-            Working Hours
+            {t('footer_working_hours')}
           </h2>
 
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <p className="font-alt text-white opacity-80">Monday – Friday</p>
-              <p className="font-alt text-white opacity-80">08:00 am – 12:00 am</p>
+              <p className="font-alt text-white opacity-80">{t('footer_monday_friday')}</p>
+              <p className="font-alt text-white opacity-80">{t('footer_monday_friday_hours')}</p>
             </div>
             <div className="flex flex-col gap-1">
-              <p className="font-alt text-white opacity-80">Saturday – Sunday</p>
-              <p className="font-alt text-white opacity-80">10:00 am – 12:00 am</p>
+              <p className="font-alt text-white opacity-80">{t('footer_saturday_sunday')}</p>
+              <p className="font-alt text-white opacity-80">{t('footer_saturday_sunday_hours')}</p>
             </div>
           </div>
         </motion.div>
@@ -116,7 +118,7 @@ const Footer = () => {
         transition={{ duration: 0.8, ease: easeSmooth, delay: 0.5 }}
       >
         <p className="font-alt text-white opacity-60 text-sm">
-          © {new Date().getFullYear()} Biliakyn Dining. All rights reserved.
+          © {new Date().getFullYear()} {t('footer_copyright')}
         </p>
       </motion.div>
     </footer>

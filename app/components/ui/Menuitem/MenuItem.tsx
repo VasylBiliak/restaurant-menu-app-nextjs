@@ -11,12 +11,14 @@ interface MenuItemProps {
   onSelect: (title: string) => void;
 }
 import FullScreenGallery from "@/app/components/ui/FullScreenGallery/FullScreenGallery";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 
 
 const MenuItem = ({ title, price, tags, selected, images = [], onSelect }: MenuItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { dispatch } = useContext(MenuContext);
+  const { t } = useTranslation();
   return (
     <>
       <div
@@ -71,7 +73,7 @@ const MenuItem = ({ title, price, tags, selected, images = [], onSelect }: MenuI
                    hover:after:scale-x-100
                    col-start-1 col-end-3 row-start-2 row-end-3 sm:col-start-2 sm:col-end-3 sm:row-auto"
             >
-              View Photos
+              {t('menu_item_view_photos')}
             </button>
           )}
         </div>

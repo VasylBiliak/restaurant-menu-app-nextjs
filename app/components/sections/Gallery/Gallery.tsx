@@ -7,6 +7,7 @@ import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 import images from '@/app/data/images';
 import SectionTitle from "@/app/components/sectionTitle/SectionTitle";
 import { fadeUpVariants, easeSmooth } from "@/app/utils/animations";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 const GALLERY_IMAGES = [images.gallery1, images.gallery2, images.gallery3, images.gallery4, images.gallery5];
 const AUTO_PLAY_INTERVAL_MS = 5000;
@@ -17,6 +18,7 @@ const Gallery = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [[currentIndex, direction], setPage] = useState([0, 0]);
   const [showFullGallery, setShowFullGallery] = useState(false);
+  const { t } = useTranslation();
 
   const n = GALLERY_IMAGES.length;
 
@@ -57,16 +59,16 @@ const Gallery = () => {
           animate={isInView ? "visible" : "hidden"}
           variants={fadeUpVariants}
         >
-          <SectionTitle title="Gallery" isInView={isInView} />
+          <SectionTitle title={t('gallery_title')} isInView={isInView} />
           <p className="">
-            Explore our restaurant's atmosphere and delicious dishes through our curated gallery.
+            {t('gallery_description')}
           </p>
           <button
             type="button"
             className="text-white max-w-5xl border-b border-golden pb-1 hover:text-golden transition-colors "
             onClick={toggleGallery}
           >
-            {showFullGallery ? 'View Less' : 'View More'}
+            {showFullGallery ? t('gallery_view_less') : t('gallery_view_more')}
           </button>
         </motion.div>
 

@@ -3,6 +3,7 @@ import Footer from "@/app/components/layout/Footer/Footer";
 import FloatingMenuButton from "@/app/components/shared/FloatingMenuButton/FloatingMenuButton";
 import GlobalGallery from "@/app/components/ui/GlobalGallery/GlobalGallery";
 import { MenuProvider } from "@/app/context/MenuContext";
+import ReduxProvider from "@/app/providers/ReduxProvider";
 import { Montserrat, Almendra, Marcellus } from "next/font/google";
 
 import "./globals.css";
@@ -107,13 +108,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${marcellus.variable} ${montserrat.variable} ${almendra.variable}`}>
       <body>
-        <MenuProvider>
-          <Header />
-          {children}
-          <FloatingMenuButton />
-          <Footer />
-          <GlobalGallery />
-        </MenuProvider>
+        <ReduxProvider>
+          <MenuProvider>
+            <Header />
+            {children}
+            <FloatingMenuButton />
+            <Footer />
+            <GlobalGallery />
+          </MenuProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
