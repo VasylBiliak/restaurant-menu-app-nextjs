@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import { motion, useInView } from 'framer-motion';
 import SectionTitle from "@/app/components/sectionTitle/SectionTitle";
 import { fadeUpVariants, containerVariants } from "@/app/utils/animations";
@@ -12,43 +12,69 @@ const BookTable = () => {
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   const { t } = useTranslation();
 
-  // --- STATE MANAGEMENT ---
+  const [hasAnimated, setHasAnimated] = useState(false);
+
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState<number>(() => Date.now());
   const [selectedTime, setSelectedTime] = useState("19:00");
-  const [selectedPartySize, setSelectedPartySize] = useState("2 guests");
+  const [selectedPartySize, setSelectedPartySize] = useState("booking_2_guests");
 
-  // --- DATA GENERATION ---
-  const partyOptions = [t('booking_1_guest'), t('booking_2_guests'), t('booking_3_guests'), t('booking_4_guests'), t('booking_5_plus_guests')];
+  const partyOptions = useMemo(() => [
+    "booking_1_guest",
+    "booking_2_guests",
+    "booking_3_guests",
+    "booking_4_guests",
+    "booking_5_plus_guests"
+  ], []);
 
-  const timeOptions = [];
-  for (let h = 9; h <= 23; h++) {
-    const hour = h < 10 ? `0${h}` : h;
-    timeOptions.push(`${hour}:00`);
-    if (h !== 23) timeOptions.push(`${hour}:30`);
-  }
+  const timeOptions = useMemo(() => {
+    const arr: string[] = [];
+    for (let h = 9; h <= 23; h++) {
+      const hour = h < 10 ? `0${h}` : h;
+      arr.push(`${hour}:00`);
+      if (h !== 23) arr.push(`${hour}:30`);
+    }
+    return arr;
+  }, []);
 
-  const dateOptions = Array.from({ length: 30 }, (_, i) => {
-    const d = new Date();
-    d.setDate(d.getDate() + i);
-    return d;
-  });
+  const dateOptions = useMemo(() => {
+    return Array.from({ length: 30 }, (_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() + i);
+      return {
+        label: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' }),
+        value: d.getTime()
+      };
+    });
+  }, []);
 
-  // --- HELPERS ---
-  const toggleMenu = (menu: string) => setOpenMenu(openMenu === menu ? null : menu);
+  const shouldAnimate = isInView && !hasAnimated;
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' });
-  };
+  React.useEffect(() => {
+    if (shouldAnimate) setHasAnimated(true);
+  }, [shouldAnimate]);
+
+  const toggleMenu = (menu: string) =>
+    setOpenMenu(prev => (prev === menu ? null : menu));
 
   const inputStyle = `
     w-full bg-transparent text-golden font-alt text-2xl outline-none 
     placeholder:text-white/40 [color-scheme:dark] min-[2000px]:text-[2rem]
   `;
 
-  const FieldWrapper = ({ label, children, gridArea, placeholder }: { label: string; children: React.ReactNode; gridArea: string; placeholder?: string }) => (
-    <motion.div 
-      variants={fadeUpVariants} 
+  const FieldWrapper = ({
+    label,
+    children,
+    gridArea
+  }: {
+    label: string;
+    children: React.ReactNode;
+    gridArea: string;
+  }) => (
+    <motion.div
+      variants={fadeUpVariants}
+      initial={false}
+      animate={shouldAnimate ? "visible" : "visible"}
       className={`${gridArea} flex flex-col gap-1 md:gap-2 lg:gap-4 border-b border-white/20 group relative pb-1 md:pb-2 transition-all hover:border-golden`}
     >
       <label className="text-xl uppercase tracking-widest text-white/90">{label}</label>
@@ -64,65 +90,87 @@ const BookTable = () => {
       <motion.form
         variants={containerVariants}
         initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        animate={shouldAnimate ? "visible" : "visible"}
         className="grid grid-cols-2 gap-x-[5px] gap-y-[20px] md:gap-x-10 md:gap-y-[30px]"
         onSubmit={(e) => e.preventDefault()}
       >
-        {/* Full Name */}
         <FieldWrapper label={t('booking_full_name')} gridArea="col-span-2 md:col-span-1">
-          <input type="text" placeholder={t('booking_full_name_placeholder')} required className={inputStyle} />
+          <input type="text" maxLength={50}
+          placeholder={t('booking_full_name_placeholder')} required className={inputStyle} />
         </FieldWrapper>
 
-        {/* Email Address */}
         <FieldWrapper label={t('booking_email')} gridArea="col-span-2 md:col-span-1">
-          <input type="email" placeholder={t('booking_email_placeholder')} required className={inputStyle} />
+          <input
+          type="email"
+          maxLength={64}
+          placeholder={t('booking_email_placeholder')}
+          required
+          className={inputStyle}
+          onChange={(e) => {
+            e.target.value = e.target.value.trim();
+          }}
+          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+        />
         </FieldWrapper>
 
-        {/* div3: Phone Number */}
         <FieldWrapper label={t('booking_phone')} gridArea="col-span-2 md:col-span-1">
-          <input type="tel" placeholder={t('booking_phone_placeholder')} required className={inputStyle} />
+          <input
+          type="tel"
+          placeholder={t('booking_phone_placeholder')}
+          required
+          className={inputStyle}
+          onChange={(e) => {
+            e.target.value = e.target.value.replace(/\D/g, '');
+          }}
+        />
         </FieldWrapper>
 
-        {/* Party Size */}
         <CustomSelect
           label={t('booking_party_size')}
-          value={selectedPartySize}
-          options={partyOptions}
+          value={t(selectedPartySize)}
+          options={partyOptions.map(key => t(key))}
           isOpen={openMenu === "party"}
           onToggle={() => toggleMenu("party")}
-          onSelect={(val: string) => { setSelectedPartySize(val); setOpenMenu(null); }}
+          onSelect={(key: string) => {
+            setSelectedPartySize(key);
+            setOpenMenu(null);
+          }}
           variants={fadeUpVariants}
           className="col-span-1 md:col-span-1"
         />
 
-        {/* Date */}
-<CustomSelect
-  label={t('booking_time')}
-  value={selectedTime}
-  options={timeOptions}
-  isOpen={openMenu === "time"}
-  onToggle={() => toggleMenu("time")}
-  onSelect={(val: string) => { setSelectedTime(val); setOpenMenu(null); }}
-  variants={fadeUpVariants}
-  className="col-span-1 md:col-span-1"
-/>
+        <CustomSelect
+          label={t('booking_time')}
+          value={selectedTime}
+          options={timeOptions}
+          isOpen={openMenu === "time"}
+          onToggle={() => toggleMenu("time")}
+          onSelect={(val: string) => {
+            setSelectedTime(val);
+            setOpenMenu(null);
+          }}
+          variants={fadeUpVariants}
+          className="col-span-1 md:col-span-1"
+        />
 
-<CustomSelect
-  label={t('booking_date')}
-  value={formatDate(selectedDate)}
-  options={dateOptions.map(d => ({ label: formatDate(d), value: d }))}
-  isOpen={openMenu === "date"}
-  onToggle={() => toggleMenu("date")}
-  onSelect={(opt: any) => { setSelectedDate(opt.value); setOpenMenu(null); }}
-  variants={fadeUpVariants}
-  className="col-span-2 md:col-span-1"
-/>
-        {/* Special Requests */}
+        <CustomSelect
+          label={t('booking_date')}
+          value={dateOptions.find(d => d.value === selectedDate)?.label || ""}
+          options={dateOptions}
+          isOpen={openMenu === "date"}
+          onToggle={() => toggleMenu("date")}
+          onSelect={(opt: any) => {
+            setSelectedDate(opt.value);
+            setOpenMenu(null);
+          }}
+          variants={fadeUpVariants}
+          className="col-span-2 md:col-span-1"
+        />
+
         <FieldWrapper label={t('booking_special_requests')} gridArea="col-span-2">
-          <textarea placeholder={t('booking_special_requests_placeholder')} rows={1} className={`${inputStyle} resize-none`} />
+          <textarea placeholder={t('booking_special_requests_placeholder')} maxLength={200} rows={1} className={`${inputStyle} resize-none`} />
         </FieldWrapper>
 
-        {/* Submit Section */}
         <motion.div variants={fadeUpVariants} className="col-span-2 flex justify-center pt-4">
           <button
             type="submit"
