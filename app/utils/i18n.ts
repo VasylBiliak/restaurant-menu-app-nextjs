@@ -1,4 +1,5 @@
 import Papa from 'papaparse';
+import { config } from '@/app/config/sheets';
 
 /**
  * Language code type - dynamic based on CSV
@@ -18,9 +19,6 @@ export interface TranslationsResult {
   languages: LanguageCode[];
   defaultLanguage: LanguageCode;
 }
-
-const TRANSLATIONS_SHEET_URL =
-   'https://docs.google.com/spreadsheets/d/e/2PACX-1vQxWCILmIzo6ZrEvntqFJx0s2DusYrJEMUQt7rnvMqO5shDdt3XE-k8ll7zCmm4_sIgC-B41WvGv81d/pub?gid=0&single=true&output=csv';
 
 // Fallback translations in case CSV fails to load
 const FALLBACK_TRANSLATIONS: Translations = {
@@ -124,7 +122,12 @@ let defaultLanguageCache: LanguageCode | null = null;
  */
 export const fetchTranslations = async (): Promise<TranslationsResult> => {
   try {
-    const response = await fetch(TRANSLATIONS_SHEET_URL, {
+    const sheetUrl = config.contentSheetUrl;
+    if (!sheetUrl) {
+      throw new Error('Content sheet URL not configured');
+    }
+
+    const response = await fetch(sheetUrl, {
       cache: 'no-store',
     });
 

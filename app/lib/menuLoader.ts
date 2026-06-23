@@ -2,8 +2,7 @@
 // normalizes fields and falls back to local menuData on failure.
 
 import localMenu from '@/app/data/menuData';
-
-const SHEET_TSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQxWCILmIzo6ZrEvntqFJx0s2DusYrJEMUQt7rnvMqO5shDdt3XE-k8ll7zCmm4_sIgC-B41WvGv81d/pub?gid=1607159484&single=true&output=tsv';
+import { config } from '@/app/config/sheets';
 
 type RawRow = Record<string, string>;
 
@@ -88,7 +87,11 @@ export async function fetchMenuData(): Promise<Record<string, any[]>> {
 
   cachedPromise = (async () => {
     try {
-      const tsv = await fetchTSV(SHEET_TSV_URL);
+      const sheetUrl = config.menuSheetUrl;
+      if (!sheetUrl) {
+        throw new Error('Menu sheet URL not configured');
+      }
+      const tsv = await fetchTSV(sheetUrl);
       const rows = parseTSV(tsv);
       if (!rows || rows.length === 0) throw new Error('No rows parsed');
       const normalized = normalizeRows(rows);
