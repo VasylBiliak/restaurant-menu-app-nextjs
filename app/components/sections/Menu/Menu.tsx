@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useContext, useEffect } from 'react';
+import React, { useState, useRef, useContext, useEffect, useMemo, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import MenuItem from '@/app/components/ui/Menuitem/MenuItem';
 import { menuData } from '@/app/data/index';
@@ -49,35 +49,35 @@ const Menu = () => {
         return () => document.removeEventListener('pointerdown', handlePointerDown);
     }, []);
 
-    const handleSelectItem = (title: string) => {
+    const handleSelectItem = useCallback((title: string) => {
         dispatch({
             type: 'TOGGLE_ITEM',
             payload: title,
         });
-    };
+    }, [dispatch]);
 
-    const handleSelectedItemClick = (title: string) => {
+    const handleSelectedItemClick = useCallback((title: string) => {
         setActiveDeleteTitle(title);
-    };
+    }, []);
 
-    const handleRemoveSelectedItem = (title: string) => {
+    const handleRemoveSelectedItem = useCallback((title: string) => {
         setActiveDeleteTitle(null);
         dispatch({
             type: 'TOGGLE_ITEM',
             payload: title,
         });
-    };
+    }, [dispatch]);
 
-    const data = (menuData as any).menuData || menuData;
-    const allDataItems = Object.values(data).flat();
+    const data = useMemo(() => (menuData as any).menuData || menuData, [menuData]);
+    const allDataItems = useMemo(() => Object.values(data).flat(), [data]);
 
-    const menuCategories = Object.entries(data).map(([key, items]) => ({
+    const menuCategories = useMemo(() => Object.entries(data).map(([key, items]) => ({
         category: key,
         displayName: key.replace(/([A-Z])/g, ' $1').trim(),
         items: items as any[],
-    }));
+    })), [data]);
 
-    const toggleCategory = (category: string) => {
+    const toggleCategory = useCallback((category: string) => {
         const isNowOpen = !openCategories[category];
 
         setOpenCategories(prev => ({
@@ -88,7 +88,7 @@ const Menu = () => {
         if (category === 'selected') {
             dispatch({ type: 'SET_SELECTED_OPEN', payload: isNowOpen });
         }
-    };
+    }, [openCategories, dispatch]);
     return (
         // === Menu Section ===
         <section ref={ref} className=" p-0!" id="menu">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo, useCallback } from "react";
 import MenuContext from "@/app/context/MenuContext";
 interface MenuItemProps {
   title: string;
@@ -18,15 +18,27 @@ import { useTranslation } from "@/app/hooks/useTranslation";
 
 
 
-const MenuItem = ({ title, price, tags, selected, images = [], onSelect, deleteModeActive = false, onDeleteConfirm }: MenuItemProps) => {
+const MenuItem = memo(({ title, price, tags, selected, images = [], onSelect, deleteModeActive = false, onDeleteConfirm }: MenuItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { dispatch } = useContext(MenuContext);
   const { t } = useTranslation();
 
+  const handleClick = useCallback(() => {
+    onSelect(title);
+  }, [onSelect, title]);
+
+  const handleImageClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    dispatch({
+      type: "OPEN_GALLERY",
+      payload: images,
+    });
+  }, [dispatch, images]);
+
   return (
     <>
       <div
-        onClick={() => onSelect(title)}
+        onClick={handleClick}
         className={`group w-full flex flex-col gap-2 
           rounded-md cursor-pointer transition-all duration-300 px-2 py-2 my-1 border-2 ${selected
             ? "border-golden shadow-[0_0_15px_rgba(220,202,135,0.2)]"
@@ -71,13 +83,7 @@ const MenuItem = ({ title, price, tags, selected, images = [], onSelect, deleteM
           {/* Button occupies second row on mobile, middle column on desktop */}
           {images.length > 0 && (
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                dispatch({
-                  type: "OPEN_GALLERY",
-                  payload: images,
-                });
-              }}
+              onClick={handleImageClick}
               className="text-xl px-1 mx-2 text-white  relative
                    focus:outline-none
                    hover:text-golden
@@ -108,6 +114,8 @@ const MenuItem = ({ title, price, tags, selected, images = [], onSelect, deleteM
       />
     </>
   );
-};
+});
+
+MenuItem.displayName = 'MenuItem';
 
 export default MenuItem;

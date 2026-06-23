@@ -13,14 +13,17 @@ export const scrollToSelectedMenue = (id: string, headerHeight = 0) => {
 
     const headerOffset = 100;
 
-    const elementPosition =
-        element.getBoundingClientRect().top + window.pageYOffset;
+    // Use requestAnimationFrame to prevent blocking
+    requestAnimationFrame(() => {
+      const elementPosition =
+          element.getBoundingClientRect().top + window.pageYOffset;
 
-    const offsetPosition = elementPosition - headerOffset;
+      const offsetPosition = elementPosition - headerOffset;
 
-    window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
+      window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+      });
     });
 };
 

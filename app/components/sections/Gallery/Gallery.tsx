@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, memo } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
@@ -12,7 +12,7 @@ import { useTranslation } from "@/app/hooks/useTranslation";
 const GALLERY_IMAGES = [images.gallery1, images.gallery2, images.gallery3, images.gallery4, images.gallery5];
 const AUTO_PLAY_INTERVAL_MS = 5000;
 
-const Gallery = () => {
+const Gallery = memo(() => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.15 });
   const [isPaused, setIsPaused] = useState(false);
@@ -41,7 +41,7 @@ const Gallery = () => {
     return () => clearInterval(id);
   }, [isPaused, paginate, showFullGallery]);
 
-  const toggleGallery = () => setShowFullGallery(!showFullGallery);
+  const toggleGallery = useCallback(() => setShowFullGallery(prev => !prev), []);
 
   return (
     <section
@@ -144,6 +144,8 @@ const Gallery = () => {
       </div>
     </section>
   );
-};
+});
+
+Gallery.displayName = 'Gallery';
 
 export default Gallery;

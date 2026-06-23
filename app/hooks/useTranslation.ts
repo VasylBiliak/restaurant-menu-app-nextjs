@@ -13,6 +13,7 @@ import {
   selectError,
 } from '@/store/slices/i18nSlice';
 import { LanguageCode, isValidLanguage } from '@/app/utils/i18n';
+import { shallowEqual } from 'react-redux';
 
 /**
  * Translation hook return type
@@ -59,11 +60,11 @@ interface UseTranslationReturn {
 export const useTranslation = (): UseTranslationReturn => {
   const dispatch = useDispatch<AppDispatch>();
 
-  // Selectors
+  // Selectors - use shallowEqual for object references
   const language = useSelector(selectLanguage);
   const languages = useSelector(selectLanguages);
   const defaultLanguage = useSelector(selectDefaultLanguage);
-  const translations = useSelector(selectTranslations);
+  const translations = useSelector(selectTranslations, shallowEqual);
   const isLoading = useSelector(selectIsLoading);
   const isLoaded = useSelector(selectIsLoaded);
   const error = useSelector(selectError);

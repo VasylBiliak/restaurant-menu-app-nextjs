@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 
 interface CustomSelectProps {
@@ -39,7 +39,7 @@ const FormField = ({
   </motion.div>
 );
 
-const CustomSelect = ({ 
+const CustomSelect = memo(({ 
   label, 
   value, 
   options, 
@@ -98,6 +98,8 @@ const CustomSelect = ({
       </div>
     </FormField>
   );
-};
+});
+
+CustomSelect.displayName = 'CustomSelect';
 
 export default CustomSelect;

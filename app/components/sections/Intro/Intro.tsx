@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { BsFillPlayFill, BsPauseFill } from 'react-icons/bs';
 import { easeSmooth, fadeUpVariants } from '@/app/utils/animations';
 import { useTranslation } from '@/app/hooks/useTranslation';
 
-const Intro = () => {
+const Intro = memo(() => {
   const [playVideo, setPlayVideo] = useState(false);
   const vidRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: false, amount: 0.25 });
+  const isInView = useInView(containerRef, { once: false, amount: 0.1 });
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -19,6 +19,7 @@ const Intro = () => {
 
     if (isInView) {
       video.play().catch(() => {
+        // Silently fail - video might not be ready
       });
     } else {
       video.pause();
@@ -41,16 +42,16 @@ const Intro = () => {
     };
   }, []);
 
-  const handleToggleVideo = () => {
+  const handleToggleVideo = useCallback(() => {
     const video = vidRef.current;
     if (!video) return;
 
     if (video.paused) {
-      video.play();
+      video.play().catch(() => {});
     } else {
       video.pause();
     }
-  };
+  }, []);
 
   return (
     <section
@@ -59,14 +60,16 @@ const Intro = () => {
     >
       <video
         ref={vidRef}
-        src="/video/introVid.mp4" //@/public/
+        src="/video/introVid.mp4"
         loop
         playsInline
         muted
-        className="h-full w-full object-cover opacity-60"
+        preload="metadata"
+        className="h-full w-full object-cover opacity-60 will-change-transform"
+        style={{ willChange: 'transform' }}
       />
 
-      <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+      <div className="absolute inset-0 flex items-center justify-center bg-black/40 pointer-events-none">
         <div className="flex max-w-720px flex-col items-center justify-center gap-6 p-6 text-center">
 
           <motion.h2
@@ -121,6 +124,8 @@ const Intro = () => {
       </div>
     </section>
   );
-};
+});
+
+Intro.displayName = 'Intro';
 
 export default Intro;
