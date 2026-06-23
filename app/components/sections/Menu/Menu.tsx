@@ -4,7 +4,6 @@ import React, { useState, useRef, useContext, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import MenuItem from '@/app/components/ui/Menuitem/MenuItem';
 import { menuData } from '@/app/data/index';
-import fetchMenuData from '@/app/lib/menuLoader';
 import SectionTitle from '@/app/components/sectionTitle/SectionTitle';
 import MenuContext from '@/app/context/MenuContext';
 import { useTranslation } from '@/app/hooks/useTranslation';
@@ -17,13 +16,15 @@ import {
 const Menu = () => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, amount: 0.15 });
-    const { t, lang } = useTranslation();
+    const { t } = useTranslation();
 
     const context = useContext(MenuContext);
     if (!context) throw new Error("Menu must be used within a MenuProvider");
 
     const { state, dispatch } = context;
     const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({});
+    const [activeDeleteTitle, setActiveDeleteTitle] = useState<string | null>(null);
+    const selectedAreaRef = useRef<HTMLDivElement | null>(null);
 
     const selectedItems = state.selectedItems;
 
@@ -36,6 +37,18 @@ const Menu = () => {
         }
     }, [state.isSelectedOpen, openCategories.selected]);
 
+    useEffect(() => {
+        const handlePointerDown = (event: PointerEvent) => {
+            if (!selectedAreaRef.current) return;
+            if (event.target instanceof Node && !selectedAreaRef.current.contains(event.target)) {
+                setActiveDeleteTitle(null);
+            }
+        };
+
+        document.addEventListener('pointerdown', handlePointerDown);
+        return () => document.removeEventListener('pointerdown', handlePointerDown);
+    }, []);
+
     const handleSelectItem = (title: string) => {
         dispatch({
             type: 'TOGGLE_ITEM',
@@ -43,62 +56,26 @@ const Menu = () => {
         });
     };
 
-    
-
-    const convertLocal = (local: any) => {
-        const out: Record<string, any[]> = {};
-        for (const [k, arr] of Object.entries(local)) {
-            const key = k;
-            out[key] = (arr as any[]).map(i => ({
-                id: i.id ?? i.title,
-                category: key,
-                images: i.images || [],
-                // store multilingual-like fields for consistency with remote
-                name_en: i.title || '',
-                desc_en: i.tags || '',
-                price_en: i.price || '',
-                // keep original fields for compatibility
-                title: i.title,
-                price: i.price,
-                tags: i.tags,
-            }));
-        }
-        return out;
+    const handleSelectedItemClick = (title: string) => {
+        setActiveDeleteTitle(title);
     };
 
-    const [data, setData] = React.useState<Record<string, any[]>>(() => convertLocal(menuData));
-    const allDataItems = React.useMemo(() => Object.values(data).flat(), [data]);
+    const handleRemoveSelectedItem = (title: string) => {
+        setActiveDeleteTitle(null);
+        dispatch({
+            type: 'TOGGLE_ITEM',
+            payload: title,
+        });
+    };
 
-    const menuCategories = React.useMemo(() => Object.entries(data).map(([key, items]) => ({
+    const data = (menuData as any).menuData || menuData;
+    const allDataItems = Object.values(data).flat();
+
+    const menuCategories = Object.entries(data).map(([key, items]) => ({
         category: key,
         displayName: key.replace(/([A-Z])/g, ' $1').trim(),
         items: items as any[],
-    })), [data]);
-
-    React.useEffect(() => {
-        let mounted = true;
-        fetchMenuData().then((remote) => {
-            if (!mounted) return;
-            // remote keys may be camelCased; try to map into readable category keys
-            const converted: Record<string, any[]> = {};
-            for (const [k, arr] of Object.entries(remote)) {
-                // prefer original casing if present in local menu
-                const localMatch = Object.keys(menuData).find(localK => localK.toLowerCase() === k.toLowerCase());
-                const outKey = localMatch || k;
-                converted[outKey] = (arr as any[]).map(item => ({
-                    ...item,
-                    // keep backward-compatible props
-                    title: item['name_' + lang] || item.title || item.name_en || item.name || item.raw?.name || item.raw?.name_en || item.raw?.title || '',
-                    price: (item['price_' + (lang === 'ua' ? 'ua' : 'en')] || item.price_en || item.price || item.raw?.price || ''),
-                    tags: item['desc_' + lang] || item.desc_en || item.desc || item.raw?.desc || item.raw?.tags || item.raw?.description || ''
-                }));
-            }
-            setData(prev => ({ ...prev, ...converted }));
-        }).catch(() => {
-            // fetchMenuData handles its own fallback; ensure state at least contains local
-        });
-        return () => { mounted = false; };
-    }, [lang]);
+    }));
 
     const toggleCategory = (category: string) => {
         const isNowOpen = !openCategories[category];
@@ -176,6 +153,7 @@ const Menu = () => {
                         {t('menu_selected')} {selectedItems.length > 0 && `${selectedItems.length}`}
                     </h3>
                         <div
+                            ref={selectedAreaRef}
                             className={`flex flex-col w-full overflow-hidden transition-all duration-300 origin-top ${openCategories.selected ? 'max-h-9999px scale-y-100 py-2 px-3' : 'max-h-0 scale-y-0'
                                 }`}
                         >
@@ -188,6 +166,7 @@ const Menu = () => {
                                     const item = allDataItems.find((i: any) => i.title === title) as any;
                                     if (!item) return null;
 
+                                    const isDeleteActive = activeDeleteTitle === title;
                                     return (
                                         <MenuItem
                                             key={item.id || item.title}
@@ -195,7 +174,10 @@ const Menu = () => {
                                             price={item.price}
                                             tags={item.tags}
                                             selected
-                                            onSelect={handleSelectItem}
+                                            images={item.images}
+                                            onSelect={() => handleSelectedItemClick(title)}
+                                            deleteModeActive={isDeleteActive}
+                                            onDeleteConfirm={() => handleRemoveSelectedItem(title)}
                                         />
                                     );
                                 })

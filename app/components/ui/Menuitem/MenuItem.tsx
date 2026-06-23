@@ -9,16 +9,20 @@ interface MenuItemProps {
   selected: boolean;
   images?: string[];
   onSelect: (title: string) => void;
+  deleteModeActive?: boolean;
+  onDeleteConfirm?: () => void;
 }
 import FullScreenGallery from "@/app/components/ui/FullScreenGallery/FullScreenGallery";
+import HoldToDeleteButton from "@/app/components/ui/HoldToDeleteButton/HoldToDeleteButton";
 import { useTranslation } from "@/app/hooks/useTranslation";
 
 
 
-const MenuItem = ({ title, price, tags, selected, images = [], onSelect }: MenuItemProps) => {
+const MenuItem = ({ title, price, tags, selected, images = [], onSelect, deleteModeActive = false, onDeleteConfirm }: MenuItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { dispatch } = useContext(MenuContext);
   const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -35,11 +39,23 @@ const MenuItem = ({ title, price, tags, selected, images = [], onSelect }: MenuI
           {/* 1st column: Checkbox + Title */}
           <div className="flex items-center gap-3 row-start-1 row-end-2 sm:row-auto">
             <div
-              className={`flex shrink-0 w-6 h-6 border-2 border-golden rounded-sm items-center justify-center transition-all duration-200 ${selected ? "bg-golden" : "bg-transparent"
-                }`}
+            className={`relative flex shrink-0 w-8 h-8 rounded-sm items-center justify-center transition-all duration-200
+              ${deleteModeActive 
+                ? 'bg-red-500/10 shadow-none' 
+                : selected 
+                  ? 'shadow-[0_0_15px_rgba(220,202,135,0.2)] bg-golden' 
+                  : 'bg-transparent shadow-none'
+              }`}
             >
-              {selected && (
+              {selected && !deleteModeActive && (
                 <span className="text-black text-sm font-bold leading-none">✔</span>
+              )}
+
+              {selected && deleteModeActive && onDeleteConfirm && (
+                <HoldToDeleteButton
+                  onComplete={onDeleteConfirm}
+                  ariaLabel={t('menu_hold_to_delete') || 'Hold to delete'}
+                />
               )}
             </div>
             <p className=" text-golden text-xl tracking-wider leading-tight">
