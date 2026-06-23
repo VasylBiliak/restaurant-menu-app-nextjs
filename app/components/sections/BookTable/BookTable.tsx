@@ -15,7 +15,7 @@ const BookTable = () => {
   const [hasAnimated, setHasAnimated] = useState(false);
 
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<number>(() => Date.now());
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState("19:00");
   const [selectedPartySize, setSelectedPartySize] = useState("booking_2_guests");
 
@@ -38,15 +38,32 @@ const BookTable = () => {
   }, []);
 
   const dateOptions = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
     return Array.from({ length: 30 }, (_, i) => {
-      const d = new Date();
+      const d = new Date(today);
       d.setDate(d.getDate() + i);
+      
+      // Use deterministic formatting that produces same output on server and client
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      
+      const label = `${weekdays[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}`;
+      
       return {
-        label: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' }),
+        label,
         value: d.getTime()
       };
     });
   }, []);
+
+  // Initialize selectedDate to today (first option) on mount
+  React.useEffect(() => {
+    if (selectedDate === null && dateOptions.length > 0) {
+      setSelectedDate(dateOptions[0].value);
+    }
+  }, [dateOptions, selectedDate]);
 
   const shouldAnimate = isInView && !hasAnimated;
 
